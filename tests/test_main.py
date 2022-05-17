@@ -1,7 +1,13 @@
 from fastapi.testclient import TestClient
 from main import app
+from utils.dotenv import config
 
-testclient = TestClient(app)
+client = TestClient(app)
 
 def test_negative():
-    assert 1==2
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "application":"Magic Card Storage Application",
+        "version": config['VERSION']
+    }

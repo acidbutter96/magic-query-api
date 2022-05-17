@@ -6,4 +6,7 @@ router = APIRouter(
 
 @router.get("/")
 async def root():
-    return {"message":"teste"}
+    return {
+        "application":"Magic Card Storage Application",
+        "version": "1.0.0"
+    }
