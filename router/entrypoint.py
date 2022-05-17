@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from utils.dotenv import config
 
 router = APIRouter(
     tags=["main"]
@@ -7,6 +8,6 @@ router = APIRouter(
 @router.get("/")
 async def root():
     return {
-        "application":"Magic Card Storage Application",
-        "version": "1.0.0"
+        "application" :"Magic Card Storage Application",
+        "version" :config["VERSION"],
     }
