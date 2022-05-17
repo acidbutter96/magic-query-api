@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
+from router import entrypoint
+
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"message":"teste"}
+app.include_router(entrypoint.router)
