@@ -1,6 +1,8 @@
 # Magic API
 
-## Create migration
+## Migrations
+Everything is already setted up for migrations and future updates of database structure, here we use [SQLAlchemy](https://docs.sqlalchemy.org/) for database connection and CRUD and so the [Alembic](https://alembic.sqlalchemy.org/en/latest/tutorial.html) for do the migrations.
+### Create migration
 
 To add or alter a database table you must use the alembic library, as SQLAlchemy recommends.
 
