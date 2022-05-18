@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 
-from router import entrypoint
+from router import router
 
 app = FastAPI()
 
-app.include_router(entrypoint.router)
+for r in router:
+    app.include_router(r)
