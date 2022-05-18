@@ -133,3 +133,6 @@ db copy.sqlite3
 
 temp
 /static
+
+# docker volume
+data/

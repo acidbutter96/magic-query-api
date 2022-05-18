@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.3
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      api:
+        ipv4_address: 172.20.0.5
+    restart: always
+  pgadmin:
+    image: chorss/docker-pgadmin4
+    ports:
+      - 5050:5050
+    networks:
+      api:
+        ipv4_address: 172.20.0.4
+  api:
+    build: .
+    volumes:
+      - .:/code
+    restart: always
+    ports:
+      - "3131:3131"
+    expose:
+      - "3131"
+    depends_on:
+      - db
+    networks:
+      api:
+        ipv4_address: 172.20.0.9
+
+networks:
+  api:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

@@ -1,12 +1,12 @@
 from datetime import datetime
+from typing import Optional
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel
-from pyparsing import Optional
 
 
 class UserModel(BaseModel):
-    id: int
+    id: Optional[UUID] = uuid4()
     username: str
     first_name: str
     last_name: str

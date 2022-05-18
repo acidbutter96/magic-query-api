@@ -1,3 +1,4 @@
+from database.fake_db import db
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
 from utils.dotenv import config
@@ -12,3 +13,9 @@ users_router = APIRouter(
 @users_router.get("/")
 async def get_user(token:str=Depends(oauth2_scheme)):
     return {"token":token}
+
+@users_router.get("/users")
+async def get_users():
+    return {
+        "result": db
+        }
