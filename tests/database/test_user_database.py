@@ -1,10 +1,9 @@
 from fastapi.testclient import TestClient
 from main import app, get_db
+from tests.database.database_testing_utils import get_token
 from tests.database.session_test_db import TestingSessionLocal, engine
 
 from database.models import UserModel, model_metadata
-
-from .database_testing_utils import get_token
 
 for meta in model_metadata:
     meta.create_all(bind=engine)
