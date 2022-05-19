@@ -1,9 +1,17 @@
 from fastapi import FastAPI
 
-from database import Base, engine
+from database import SessionLocal, engine, models
 from router import router
 
-Base.metadata.create_all(bind=engine)
+for meta in models.model_metadata:
+    meta.create_all(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 app = FastAPI()
 

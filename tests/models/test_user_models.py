@@ -1,7 +1,6 @@
+from database.models.user import UserModel
 from fastapi.testclient import TestClient
 from main import app
-
-from models.user import UserModel
 
 client = TestClient(app)
 

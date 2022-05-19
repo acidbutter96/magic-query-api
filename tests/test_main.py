@@ -1,4 +1,3 @@
-from database.fake_db import fake_users_db
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.testclient import TestClient
 from main import app
