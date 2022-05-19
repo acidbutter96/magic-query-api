@@ -1,14 +1,16 @@
 from fastapi.testclient import TestClient
-from main import app, get_db
+from main import app
 from tests.database.database_testing_utils import get_token
 from tests.database.session_test_db import TestingSessionLocal, engine
 
 from database.models import UserModel, model_metadata
+from database.session import Base, get_db
 
-for meta in model_metadata:
-    meta.create_all(bind=engine)
-    ...
+# for meta in model_metadata:
+#     meta.create_all(bind=engine)
+#     ...
 
+Base.metadata.create_all(bind=engine)
 # def init_db():
 #     db = TestingSessionLocal()
 
@@ -28,10 +30,10 @@ def test_create_user():
         "/users/",
         json={
             "username":"oldusername",
-            "password":"oldpassword",
+            "email":"old@email.com",
             "first_name":"old",
             "last_name":"name",
-            "email":"old@email.com",
+            "password":"oldpassword",
         },
     )
     assert response.status_code == 201, response.text
@@ -52,7 +54,7 @@ def test_create_user():
 
 def test_register_registered_user():
     response = client.post(
-        "/users/",
+        "/user/",
         json={
             "username":"existentusername",
             "password":"password",
@@ -61,7 +63,7 @@ def test_register_registered_user():
             "email":"existent@email.com",
         },
     )
-    assert response.status_code == 409
+    assert response.status_code == 400
 
     data = response.json()
     assert data["status"] == "User already exists"

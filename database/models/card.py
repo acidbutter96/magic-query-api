@@ -1,10 +1,10 @@
-from database import Base
+import database.session as data
 from sqlalchemy import (Boolean, Column, DateTime, Float, ForeignKey, Integer,
                         String)
 from sqlalchemy.sql import func
 
 
-class CardModel(Base):
+class CardModel(data.Base):
     __tablename__ = "cards"
 
     id = Column(Integer, primary_key=True)

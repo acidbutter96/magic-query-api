@@ -17,6 +17,7 @@ class UserModel(Base):
     first_name = Column(String(20), nullable=False, )
     last_name = Column(String(20), nullable=False, )
     password = Column(String(20), nullable=False, )
+    email = Column(String(100), nullable=False, )
     is_deleted = Column(Boolean(create_constraint=False, ), nullable=False)
     is_active = Column(Boolean(create_constraint=True, ), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

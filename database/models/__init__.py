@@ -1,7 +1,4 @@
-
 from typing import List
-
-from database.session import Base
 
 from .card import CardModel
 from .user import UserModel
