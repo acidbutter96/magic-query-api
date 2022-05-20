@@ -21,8 +21,8 @@ if config.config_file_name is not None:
 
 def get_target_metadatas(metas):
     m = MetaData()
-    for metadata in metas:
-        for t in metadata.tables.values():
+    for md in metas:
+        for t in md.tables.values():
             t.tometadata(m)
     return m
 

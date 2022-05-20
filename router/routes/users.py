@@ -1,5 +1,5 @@
 from database import get_db
-from database.models import UserModel
+# from database.models import UserModel
 from database.schemas import UserCreate, UserSchema, UserUpdate
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
@@ -14,7 +14,7 @@ users_router = APIRouter(
     tags=["users"]
 )
 
-@users_router.post("/", response_model=UserSchema)
+@users_router.post("/")
 def post_create_user(user:UserCreate, db:Session = Depends(get_db)):
     if db_user_email := user_crud.read_user_by_email(db, user.email):
         raise HTTPException(status_code=400, detail={
@@ -26,15 +26,17 @@ def post_create_user(user:UserCreate, db:Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail={
             "status": "User already exists"
         })
-
-    return user_crud.create_user(db=db, user=user)
+    
+    created = user_crud.create_user(db=db, user=user)
+    return {
+        "status": "User registered successfully",
+    }
 
 @users_router.get("/", response_model=UserSchema)
 def read_get_user(db:Session = Depends(get_db)):
     # recover id from jwt
     id = 1
     return user_crud.read_user(db, id)
-    ...
 
 @users_router.get("/users")
 async def read_get_users():

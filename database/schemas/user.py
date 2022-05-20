@@ -1,6 +1,9 @@
 from datetime import datetime
+from typing import List
 
 from pydantic import BaseModel
+
+from .card import CardSchema
 
 
 class UserBase(BaseModel):
@@ -13,6 +16,8 @@ class UserCreate(UserBase):
     password: str
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
+    is_deleted: bool = False
+    is_active: bool = True
 
 
 class UserAuthentication(BaseModel):

@@ -6,6 +6,7 @@ from sqlalchemy.sql import func
 
 class CardModel(data.Base):
     __tablename__ = "cards"
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     card_name = Column(String(100), nullable=False)

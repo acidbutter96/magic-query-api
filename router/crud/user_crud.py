@@ -56,6 +56,7 @@ def delete_persistent_user(db:Session, id:int):
         except Exception as e:
             return False
         return True
+    return False
 
 def delete_user(db:Session, id:int):
     if student := read_user(db, id):
