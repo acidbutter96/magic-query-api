@@ -123,7 +123,7 @@ def test_delete_user():
     data = get_token(client,"oldusername","oldpassword")
 
     response = client.delete(
-        f"/user/{data['id']}",
+        f"/user/",
         headers={'Authorization':f"Bearer {data['token']}"}
     )
     assert response.status_code == 200
@@ -131,6 +131,30 @@ def test_delete_user():
     assert query[0]["is_deleted"]
     response = client.get(f"/users/{data['id']}")
     assert response.status_code == 404
+
+def test_delete_inexistent_user():
+    """ 
+        This test case is from the premise of the user executing the delete method twice with an active jwt  token.
+    """
+    db = override_get_db()
+    data = get_token(client, "oldusername", "oldpassword")
+    id = 1
+
+    response1 = client.delete(f"/user/", headers={
+        "Authorization": f"Bearer {data['token']}",
+    })
+    assert response1.status_code == 200
+    assert response1.json()["info"] == f"user_id: {id} was deleted successfully."
+
+    response2 = client.delete(f"")
+    assert response2.status_code == 400
+    assert response2.json()["detail"]["status"] == "There's no such user with the specified id, probably the user already was deleted."
+
+    response3 = client.delete("/user/", headers={
+        "Authorization": "Bearer falsebearertoken",
+    })
+    assert response3.status_code == 500
+    assert response3.json()["detail"]["status"] == "User cannot be deleted"
 
 def test_view_user():
     db = override_get_db()

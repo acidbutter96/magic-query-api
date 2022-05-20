@@ -24,6 +24,7 @@ class UserUpdate(UserBase):
 
 class UserSchema(UserBase):
     id: int
+    deleted_at: datetime = None
 
     class Config:
         orm_mode = True

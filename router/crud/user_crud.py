@@ -45,6 +45,18 @@ def update_user(db:Session, id:int, new_data:UserUpdate):
         db.refresh(student)
     return student
 
+def delete_persistent_user(db:Session, id:int):
+    if student := read_user(db, id):
+        try:
+            db.query(UserModel).filter(UserModel.id == id).update({
+                "is_deleted": True,
+                "deleted_at": datetime.now(),
+                })
+            db.commit()
+        except Exception as e:
+            return False
+        return True
+
 def delete_user(db:Session, id:int):
     if student := read_user(db, id):
         db.delete(student)
