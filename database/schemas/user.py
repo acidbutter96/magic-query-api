@@ -8,16 +8,19 @@ class UserBase(BaseModel):
     email: str
     first_name: str
     last_name: str
-    created_at: datetime = None
-    updated_at: datetime = None
 
 class UserCreate(UserBase):
-    is_deleted: bool = False
-    is_active: bool = True
+    password: str
+    created_at: datetime = datetime.now()
+    updated_at: datetime = datetime.now()
+
+
+class UserAuthentication(BaseModel):
+    username: str
     password: str
 
-# class UserStatus(UserBase):
-#     ...
+class UserUpdate(UserBase):
+    authentication: UserAuthentication
 
 class UserSchema(UserBase):
     id: int
