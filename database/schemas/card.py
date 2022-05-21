@@ -4,12 +4,11 @@ from pydantic import BaseModel
 
 
 class CardBase(BaseModel):
-    card_name:str
-    edition:int
-    price:float
-    foil:bool
+    card_name:str | None
+    edition:int | None
+    price:float | None
+    foil:bool | None
     quantity:int
-    user_id: int
 
 class CardCreate(CardBase):
     ...
@@ -18,6 +17,7 @@ class CardUpdate(CardBase):
 
 class CardSchema(CardBase):
     id: int
+    user_id: int
 
     class Config:
         orm_mode = True

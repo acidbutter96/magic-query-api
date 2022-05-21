@@ -7,10 +7,9 @@ from sqlalchemy.orm import Session
 
 def create_card(db:Session, card:CardCreate, user_id:int)->CardModel:
     db_card = CardModel(card_name=card.card_name, edition=card.edition,
-                    edition=card.edition, price=card.price,
                     price=card.price, foil=card.foil,
-                    quantity=card.quantity, user_id=user_id
-    )
+                    quantity=card.quantity, user_id=user_id)
+    
     db.add(db_card)
     db.commit()
     db.refresh(db_card)
@@ -19,6 +18,12 @@ def create_card(db:Session, card:CardCreate, user_id:int)->CardModel:
 def read_card(db:Session, card_id: int):
     return db.query(CardModel).filter(
         CardModel.id == card_id
+    ).first()
+
+def read_card_by_name(db:Session, user_id: int, card_id: int):
+    return db.query(CardModel).filter(
+        CardModel.card_name == card_id,
+        CardModel.user_id == user_id,
     ).first()
 
 def list_cards(db:Session, user_id:int):

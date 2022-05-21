@@ -1,9 +1,9 @@
 from database import get_db
+from database.crud import user_crud
 # from database.models import UserModel
 from database.schemas import UserCreate, UserSchema, UserUpdate
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from router.crud import user_crud
 from sqlalchemy.orm import Session
 from utils.dotenv import config
 
